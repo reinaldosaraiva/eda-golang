@@ -26,3 +26,6 @@ go.work.sum
 
 # OS
 .DS_Store
+
+# Go build artifacts (example binaries)
+/examples/outbox-inbox/outbox-inbox
