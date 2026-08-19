@@ -191,6 +191,9 @@ func handle(ctx context.Context, db *sql.DB, m *nats.Msg) error {
 	if err := json.Unmarshal(m.Data, &env); err != nil {
 		return fmt.Errorf("decode: %w", err)
 	}
+	if err := validateEnvelope(env); err != nil {
+		return err
+	}
 	msgID := env.ID // business idempotency key, independent of broker headers
 	evt := env.Payload
 
@@ -234,6 +237,16 @@ func republishDuplicate(ctx context.Context, db *sql.DB, js nats.JetStreamContex
 	if _, err := js.Publish(subject, payload); err == nil {
 		log.Printf("CHAOS   republished envelope %s (simulating redelivery past the broker dedup window)", id)
 	}
+}
+
+// validateEnvelope guards the dedup contract: an empty ID would collapse
+// every message under the same inbox key and silently drop legitimate
+// events. Fail loud instead.
+func validateEnvelope(env Envelope) error {
+	if env.ID == "" {
+		return fmt.Errorf("envelope %q has empty ID: cannot dedup, refusing to process", env.Name)
+	}
+	return nil
 }
 
 // ---------------------------------------------------------------------------
