@@ -133,7 +133,10 @@ func relay(ctx context.Context, db *sql.DB, js nats.JetStreamContext) {
 			time.Sleep(relayEvery)
 			continue
 		}
-		type msg struct{ id, subject string; payload []byte }
+		type msg struct {
+			id, subject string
+			payload     []byte
+		}
 		var batch []msg
 		for rows.Next() {
 			var m msg
