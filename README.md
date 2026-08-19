@@ -1,5 +1,8 @@
 # Event-Driven Architecture in Go — Best Practices
 
+[![CI](https://github.com/reinaldosaraiva/eda-golang/actions/workflows/ci.yml/badge.svg)](https://github.com/reinaldosaraiva/eda-golang/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A community-driven, opinionated guide to building event-driven systems in Go:
 event sourcing, CQRS, sagas, transactional messaging (outbox/inbox), and
 NATS JetStream — distilled from real reference implementations and production
