@@ -269,6 +269,24 @@ events makes event assertions trivial.
 - **Splitting services before boundaries exist** — split the schema first,
   the deployment later.
 
+## Included: `golang-pro` Agent Skill
+
+This repository ships the [`golang-pro`](.agents/skills/golang-pro/SKILL.md)
+skill — a ready-to-use specialist skill for AI coding agents (Kimi Code,
+Claude Code, and compatible harnesses) covering Go concurrency, design
+patterns, gRPC, eBPF, and the EDA patterns documented in this README
+([references/event-driven-architecture.md](.agents/skills/golang-pro/references/event-driven-architecture.md)).
+
+**Install (user scope — available in all projects):**
+
+```bash
+mkdir -p ~/.agents/skills
+cp -R .agents/skills/golang-pro ~/.agents/skills/
+```
+
+**Install (project scope):** copy `.agents/skills/golang-pro` into your
+project's `.agents/skills/` directory.
+
 ## Contributing
 
 Contributions are welcome — corrections, additional patterns (Kafka, RabbitMQ,
