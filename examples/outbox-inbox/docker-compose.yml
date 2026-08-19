@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: eda
+      POSTGRES_PASSWORD: eda
+      POSTGRES_DB: eda
+    ports:
+      - "55432:5432" # host port offset to avoid clashing with a local Postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eda"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+  nats:
+    image: nats:2-alpine
+    command: ["-js", "-m", "8222"]
+    ports:
+      - "14222:4222" # client (host port offset to avoid clashing with a local NATS)
+      - "18222:8222" # monitoring (http://localhost:18222/jsz)
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:8222/healthz"]
+      interval: 2s
+      timeout: 3s
+      retries: 15

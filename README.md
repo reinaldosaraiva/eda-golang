@@ -29,6 +29,7 @@ myths. This guide collects the patterns that actually hold up.
   - [Saga orchestration](#6-saga-orchestration)
   - [NATS JetStream specifics](#7-nats-jetstream-specifics)
 - [Monolith to Microservices](#monolith-to-microservices-as-a-deploy-time-decision)
+- [Runnable Examples](#runnable-examples)
 - [Testing Pyramid for EDA](#testing-pyramid-for-eda)
 - [Observability](#observability)
 - [Common Pitfalls](#common-pitfalls)
@@ -268,6 +269,13 @@ events makes event assertions trivial.
 - **`AckWait` shorter than handler timeout** — duplicate processing storms.
 - **Splitting services before boundaries exist** — split the schema first,
   the deployment later.
+
+## Runnable Examples
+
+- [`examples/outbox-inbox`](examples/outbox-inbox/) — transactional outbox +
+  idempotent inbox with Postgres and NATS JetStream, in a single commented
+  file. `docker compose up -d && go run .` — watch a simulated redelivery get
+  absorbed by the inbox dedup.
 
 ## Included: `golang-pro` Agent Skill
 
